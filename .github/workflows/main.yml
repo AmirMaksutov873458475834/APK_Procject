@@ -9,23 +9,26 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    env:
+      FLET_CLI_NO_ASK: "1"
+      CI: "true"
+
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install deps
         run: |
           pip install --upgrade pip
           pip install flet flet-cli
 
       - name: Build APK
         run: |
-          flet build apk
+          flet build apk --yes
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
